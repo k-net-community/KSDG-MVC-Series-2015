@@ -1,0 +1,44 @@
+﻿@model IEnumerable<KSDGControllerApp.Models.GuestMessage>
+
+@{
+    Layout = "~/Views/Shared/_Bootstrap.cshtml";
+}
+
+<div class="row">
+    &nbsp;
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <h2 class="page-header">訪客留言板</h2>
+        <p>
+            @Html.ActionLink("Create New", "Add", routeValues: null, htmlAttributes: new { @class = "btn btn-default", role = "button" })
+        </p>
+        <section class="comment-list">
+            <!-- First Comment -->
+            @foreach (var item in Model)
+            {
+                <article class="row">
+                    <div class="col-md-10 col-sm-10">
+                        <div class="panel panel-default arrow left">
+                            <div class="panel-body">
+                                <header class="text-left">
+                                    <h3>@item.Subject</h3>
+                                </header>
+                                <div class="comment-post">
+                                    <p>
+                                        @item.Body
+                                    </p>
+                                </div>
+                                <footer class="text-right">
+                                    <div><a href="@Url.Action("Download", "Guest", new { Id = @item.Id })"><i class="fa fa-download"></i>@Path.GetFileName(item.FilePath)</a></div>
+                                    <div class="comment-user"><i class="fa fa-user"></i>@item.Name</div>
+                                    <time class="comment-date" datetime="@item.DatePosted"><i class="fa fa-clock-o"></i>@item.DatePosted.ToString("yyyy/MM/dd HH:mm:ss")</time>
+                                </footer>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            }
+        </section>
+    </div>
+</div>
